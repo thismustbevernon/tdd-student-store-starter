@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import ProductView from "../ProductView/ProductView";
+import NotFound from "../NotFound/NotFound";
 
 export default function ProductDetail({
   handleAddItemToCart,
@@ -17,10 +18,10 @@ export default function ProductDetail({
   let { productId } = useParams();
   console.log("this is the product id", { productId });
   const isLoading = !Boolean(product);
-  const whenLoading = "";
+  //const whenLoading = "";
 
   const quantity = 0;
-  const whenLoaded = (
+  var loaded = (
     <ProductView
       product={product}
       productId={productId}
@@ -30,16 +31,33 @@ export default function ProductDetail({
     />
   );
 
-  const show = isLoading ? <h1> Loading...</h1> : whenLoaded;
+  //var show = isLoading ? <h1> Loading...</h1> : loaded;
+
+  var show;
+  if (isLoading) {
+    show = <h1> Loading...</h1>;
+  } else if (product === "Not Found") {
+    show = <NotFound />;
+  } else {
+    show = loaded;
+  }
 
   useEffect(async () => {
     console.log("ProductId: ", productId);
-    const url = `https://codepath-store-api.herokuapp.com/store/`;
-    const newUrl = url + productId;
-    const response = await axios.get(newUrl);
 
-    console.log("respose:", response);
-    setProduct(response.data.product);
+    try {
+      const url = `https://codepath-store-api.herokuapp.com/store/`;
+      const newUrl = url + productId;
+      const response = await axios.get(newUrl);
+      setProduct(response.data.product);
+    } catch (error) {
+      console.log("error", error);
+      console.log(error?.response);
+      if (error?.response?.status === 404) {
+        setProduct("Not Found");
+        console.log("the if statement");
+      }
+    }
   }, []);
 
   return (
@@ -48,7 +66,6 @@ export default function ProductDetail({
       <Sidebar />
       {show}
       <p>Product Detail</p>
-  
     </div>
   );
 }
