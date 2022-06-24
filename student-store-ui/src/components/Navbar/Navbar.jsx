@@ -1,32 +1,18 @@
-import * as React from "react"
-import "./Navbar.css"
-import Sidebar from "../Sidebar/Sidebar"
-
+import * as React from "react";
+import "./Navbar.css";
+import Sidebar from "../Sidebar/Sidebar";
+import Logo from "../Logo/Logo";
 
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <p>navbar</p>
-      <div className="content">
-      <div className="logo"></div>
-      <ul className="links">
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/#About">About US</a>
-        </li>
-        <li>
-          <a href="/#Contact">Contact US</a>
-        </li>
-        <li>
-          <a href="/But">Buy Now</a>
-        </li>
+      <ul className="navbar-items">
+        <Logo className="logo" />
+        <li className="navbar-item">Home</li>
+        <li className="navbar-item">About</li>
+        <li className="navbar-item">Contact</li>
+        <li className="navbar-item">Buy Now</li>
       </ul>
-
-
-      </div>
-
     </nav>
-  )
+  );
 }
