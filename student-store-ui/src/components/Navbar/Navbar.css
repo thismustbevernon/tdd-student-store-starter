@@ -1,4 +1,19 @@
 .navbar{
     display: flex;
-    background-color: aqua;
+    background-color:grey;
+}
+
+.navbar-item{
+
+    padding:20px;
+    color:white
+
+}
+
+.navbar-items{
+    display: flex;
+
+    margin-left: 50%;
+    text
+
 }

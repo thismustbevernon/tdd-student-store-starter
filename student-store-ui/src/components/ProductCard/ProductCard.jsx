@@ -11,7 +11,7 @@ export default function ProductCard({product,productId,quantity,handleAddItemToC
     <div className="product-card">
       {description}
 
-      <Link to = {"/products/" + productId}><img src = {product.image} height="200px" className="image"/></Link>
+      <Link to = {"/products/" + productId}><img src = {product.image} height="200px" width="200px" className="image"/></Link>
       <p className="product-name">{product.name}</p>
       <p className="product-price">${product.price}</p>
       <p className="product-description">{showDescription?description:''}</p>

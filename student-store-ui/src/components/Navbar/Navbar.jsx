@@ -6,13 +6,14 @@ import Logo from "../Logo/Logo";
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <ul className="navbar-items">
-        <Logo className="logo" />
-        <li className="navbar-item">Home</li>
-        <li className="navbar-item">About</li>
-        <li className="navbar-item">Contact</li>
-        <li className="navbar-item">Buy Now</li>
-      </ul>
+      <Logo className="logo" />
+      <div className="navbar-items">
+     
+        <p className="navbar-item">Home</p>
+        <p className="navbar-item">About</p>
+        <p className="navbar-item">Contact</p>
+        <p className="navbar-item">Buy Now</p>
+      </div>
     </nav>
   );
 }

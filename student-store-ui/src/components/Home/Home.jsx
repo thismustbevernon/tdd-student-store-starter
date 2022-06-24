@@ -5,7 +5,8 @@ import Navbar from "../Navbar/Navbar";
 import ProductDetail from "../ProductDetail/ProductDetail";
 
 import ProductGrid from "../ProductGrid/ProductGrid";
-import Welcome from "../Hero/Hero";
+import Hero from "../Hero/Hero";
+import About from "../About/About";
 
 
 export default function Home({
@@ -18,7 +19,7 @@ export default function Home({
     <div className="home">
       <Navbar />
       <Sidebar />
-      <Welcome/>
+      <Hero/>
    
       <ProductGrid
         products={products}
@@ -26,6 +27,7 @@ export default function Home({
         handleRemoveItemToCart={handleRemoveItemToCart}
         shoppingCart={shoppingCart}
       />
+      <About/>
     </div>
   );
 }

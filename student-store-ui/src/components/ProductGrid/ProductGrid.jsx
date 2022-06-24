@@ -11,7 +11,7 @@ export default function ProductGrid({
 }) {
   return (
     <div className="product-grid">
-      <p>product grid</p>
+
 
       {products.map((product) => {
         return (
