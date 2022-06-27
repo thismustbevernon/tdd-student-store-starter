@@ -17,7 +17,8 @@ export default function App() {
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [shoppingCart, setShoppingCart] = useState([]);
-  const [checkOutForm, setCheckOutForm] = useState();
+  const [checkoutForm, setCheckOutForm] = useState(null);
+  const [subtotal, setSubtotal] = useState(null);
 
   useEffect(async () => {
     const response = await axios.get(url);
@@ -38,7 +39,14 @@ export default function App() {
     if (item) {
       shoppingCart.map((item) => {
         if (item.id === productId) {
-          item.capacity += 1;
+          //item.capacity += 1;
+          item.quantity += 1;
+
+          var tempPrice =
+            products.find((item) => item.id === productId).price + subtotal;
+          setSubtotal(tempPrice);
+
+          return;
         }
       });
     } else {
@@ -47,6 +55,10 @@ export default function App() {
         quantity: 1,
       };
       setShoppingCart(shoppingCart.concat(item));
+
+      var tempPrice =
+        products.find((item) => item.id === productId).price + subtotal;
+      setSubtotal(tempPrice);
     }
   }
 
@@ -63,7 +75,7 @@ export default function App() {
     }
   }
 
-  function handleCheckoutFormChange(names, values) {
+  function handleOnCheckoutFormChange(names, values) {
     let userInformation = {
       name: names,
       value: values,
@@ -73,30 +85,57 @@ export default function App() {
   }
 
   async function handleOnSubmitCheckoutForm(checkOutForm, shoppingCart) {
-    const response = axios.post(url, 
-      {
-        user: checkOutForm,
-        shoppingCart: shoppingCart,
-      });
+    const response = axios.post(url, {
+      user: checkOutForm,
+      shoppingCart: shoppingCart,
+    });
   }
   return (
     <div className="app">
       <BrowserRouter>
         <main>
           <Routes>
-            <Route path="/" element={<Home
-             products={products}
-             handleAddItemToCart ={handleAddItemToCart}
-             handleRemoveItemToCart = {handleRemoveItemToCart}
-             shoppingCart ={shoppingCart}
-             />
-             } 
-             />
-            <Route path="/products/:productId" element={<ProductDetail shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemToCart={handleRemoveItemToCart} />} />
+            <Route
+              path="/"
+              element={
+                <Home
+                  products={products}
+                  handleAddItemToCart={handleAddItemToCart}
+                  handleRemoveItemToCart={handleRemoveItemToCart}
+                  shoppingCart={shoppingCart}
+                  handleOnToggle={handleOnToggle}
+                  handleOnCheckoutFormChange={handleOnCheckoutFormChange}
+                  handleOnSubmitCheckoutForm={handleOnCheckoutFormChange}
+                  isOpen={isOpen}
+                  checkoutForm={checkoutForm}
+                  setShoppingCart={setShoppingCart}
+                  subtotal={subtotal}
+                  cartSize={shoppingCart.length}
+                  setSubtotal={setSubtotal}
+                />
+              }
+            />
+            <Route
+              path="/products/:productId"
+              element={
+                <ProductDetail
+                  shoppingCart={shoppingCart}
+                  handleAddItemToCart={handleAddItemToCart}
+                  handleRemoveItemToCart={handleRemoveItemToCart}
+                  handleRemoveItemFromCart={handleRemoveItemToCart}
+                  isOpen={isOpen}
+                  products={products}
+                  handleOnCheckoutFormChange={handleOnCheckoutFormChange}
+                  handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm}
+                  handleOnToggle={handleOnToggle}
+                  checkoutForm={checkoutForm}
+                  subtotal={subtotal}
+                />
+              }
+            />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </main>
-      
       </BrowserRouter>
     </div>
   );
