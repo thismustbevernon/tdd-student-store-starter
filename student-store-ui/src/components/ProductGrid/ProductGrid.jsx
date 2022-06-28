@@ -1,27 +1,38 @@
 import * as React from "react";
 import "./ProductGrid.css";
-
+import "../ProductCard/ProductCard";
 import ProductCard from "../ProductCard/ProductCard";
+import { useState } from "react";
 
-export default function ProductGrid({
-  products,
-  handleAddITemToCart,
-  handleRemoveItemToCart,
-  shoppingCart,
-}) {
+export default function ProductGrid(props) {
+
+  
+  
+  if(props.products.length === 0){
+    return (
+      <p className="errorMsg">Sorry! No products meet your search criteria</p>
+    )
+  }
+
   return (
     <div className="product-grid">
-
-
-      {products.map((product) => {
+      {props.products.map((product, idx) => {
         return (
           <ProductCard
-            showDescription={false}
-            product={product}
+            product= {product}
             productId={product.id}
-            quantity={shoppingCart.quantity}
-            handleAddITemToCart={handleAddITemToCart}
-            handleRemoveItemToCart={handleRemoveItemToCart}
+            quantity={
+              props.shoppingCart.find((item) => item.itemId === product.id)
+                ? props.shoppingCart.find((item) => item.itemId === product.id)
+                    .quantity
+                : null
+            }
+            handleAddItemToCart={props.handleAddItemToCart}
+            handleRemoveItemFromCart={props.handleRemoveItemFromCart}
+            showDescription={false}
+            key={idx}
+            shoppingCart={props.shoppingCart}
+           
           />
         );
       })}

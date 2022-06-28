@@ -1,7 +1,4 @@
-.product{
-
-    box-sizing: border-box;
-    display: block;
-    margin: 10px;
-
+.wrapper{
+    display: flex;
+    justify-content: center;
 }

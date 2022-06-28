@@ -1,27 +1,25 @@
+
 import * as React from "react";
 import "./ProductView.css";
-import Hero from "../Hero/Hero";
 import ProductCard from "../ProductCard/ProductCard";
 
-export default function ProductView({
-  product,
-  productId,
-  quantity,
-  handleAddItemToCart,
-  handleRemoveItemToCart,
-}) {
+export default function ProductView(props) {
+ 
   return (
-    <div className="product">
-      <h1 className="product-id">Product#{productId}</h1>
-
-      <ProductCard
-        showDescription={true}
-        product={product}
-        productId={productId}
-        quantity={quantity}
-        handleAddItemToCart={handleAddItemToCart}
-        handleRemoveItemToCart={handleRemoveItemToCart}
-      />
+    <div className="wrapper">
+      <div className="product-view">
+        <h1 className="product-id">Product # {props.productId} </h1>
+        <ProductCard
+          quantity={props.quantity}
+          productId={props.product.id}
+          product={props.product}
+          shoppingCart={props.shoppingCart}
+          handleAddItemToCart={props.handleAddItemToCart}
+          handleRemoveItemFromCart={props.handleRemoveItemFromCart}
+          showDescription={true}
+          key={props.productId}
+        />
+      </div>
     </div>
   );
 }

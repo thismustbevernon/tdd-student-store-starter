@@ -1,6 +1,6 @@
 import * as React from "react";
 import "./Contact.css";
-//import { SocialIcon } from "react-social-icons";
+import  {SocialIcon} from "react-social-icons";
 
 export default function Contact() {
   return (
@@ -26,7 +26,7 @@ export default function Contact() {
             <li>
               <span>Socials: </span>
               <span className="socials">
-                {/* <SocialIcon
+                <SocialIcon
                   url="https://twitter.com/codepath?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
                   network="twitter"
                   bgColor="#2c4047"
@@ -45,7 +45,7 @@ export default function Contact() {
                   network="facebook"
                   bgColor="#2c4047"
                   fgColor="#fff"
-                /> */}
+                />
               </span>
             </li>
           </ul>

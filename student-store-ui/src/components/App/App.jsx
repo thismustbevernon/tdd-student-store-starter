@@ -5,91 +5,103 @@ import Home from "../Home/Home";
 import ProductDetail from "../ProductDetail/ProductDetail";
 import NotFound from "../NotFound/NotFound";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
-const url = "https://codepath-store-api.herokuapp.com/store";
-
 export default function App() {
-  const [products, setProducts] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [shoppingCart, setShoppingCart] = useState([]);
-  const [checkoutForm, setCheckOutForm] = useState(null);
-  const [subtotal, setSubtotal] = useState(null);
+  var item = {
+    itemId: 4,
+    quantity: 2,
+  };
 
+  const [products, setProducts] = useState([]);
+  const [isFetching, setIsFetching] = useState(null);
+  const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(null);
+  const [shoppingCart, setShoppingCart] = useState([]);
+  const [checkoutForm, setcheckoutForm] = useState(null);
+  const [subtotal, setSubtotal] = useState(null);
+  
   useEffect(async () => {
-    const response = await axios.get(url);
-    if (response.data.products) {
-      setProducts(response.data.products);
-    } else {
-      setError("No Products Found");
+    let url = `https://codepath-store-api.herokuapp.com/store`;
+
+    try {
+      let response = await axios.get(url);
+      let responseData = response.data;
+      setProducts(responseData.products);
+    } catch (e) {
+      console.log(e);
+      setError(e);
     }
   }, []);
 
-  function handleOnToggle(isOpen) {
-    setIsOpen(!isOpen);
-  }
+  const handleAddItemToCart = (productId) => {
+    var newItem;
+    var newCart = [];
 
-  function handleAddItemToCart(productId) {
-    let item = shoppingCart.find((element) => element.id === productId);
+    for (var i = 0; i < shoppingCart.length; i++) {
+      if (shoppingCart[i].itemId === productId) {
+        shoppingCart[i].quantity++;
+        setShoppingCart([...shoppingCart]);
+        var tempPrice =
+          products.find((item) => item.id === productId).price + subtotal;
+        setSubtotal(tempPrice);
 
-    if (item) {
-      shoppingCart.map((item) => {
-        if (item.id === productId) {
-          //item.capacity += 1;
-          item.quantity += 1;
-
-          var tempPrice =
-            products.find((item) => item.id === productId).price + subtotal;
-          setSubtotal(tempPrice);
-
-          return;
-        }
-      });
-    } else {
-      item = {
-        id: productId,
-        quantity: 1,
-      };
-      setShoppingCart(shoppingCart.concat(item));
-
-      var tempPrice =
-        products.find((item) => item.id === productId).price + subtotal;
-      setSubtotal(tempPrice);
-    }
-  }
-
-  function handleRemoveItemToCart(productId) {
-    let item = shoppingCart.find((element) => element.id === productId);
-    if (item) {
-      if (item.quantity === 1) {
-        shoppingCart.filter((prod) => {
-          return prod.id !== productId;
-        });
-      } else {
-        item.quantity -= 1;
+        return;
       }
     }
-  }
-
-  function handleOnCheckoutFormChange(names, values) {
-    let userInformation = {
-      name: names,
-      value: values,
+    newItem = {
+      itemId: productId,
+      quantity: 1,
     };
 
-    setCheckOutForm(userInformation);
-  }
+    setShoppingCart([newItem, ...shoppingCart]);
+    var tempPrice =
+      products.find((item) => item.id === productId).price + subtotal;
+    setSubtotal(tempPrice);
+  };
 
-  async function handleOnSubmitCheckoutForm(checkOutForm, shoppingCart) {
-    const response = axios.post(url, {
-      user: checkOutForm,
-      shoppingCart: shoppingCart,
-    });
-  }
+  const handleRemoveItemFromCart = (productId) => {
+    var newItem;
+    var newCart = [];
+
+    for (var i = 0; i < shoppingCart.length; i++) {
+      if (shoppingCart[i].itemId === productId) {
+        if (shoppingCart[i].quantity != 1) {
+          shoppingCart[i].quantity--;
+          setShoppingCart([...shoppingCart]);
+          var tempPrice =
+            subtotal - products.find((item) => item.id === productId).price;
+          setSubtotal(tempPrice);
+          return;
+        } else {
+          shoppingCart.splice(i, 1);
+          setShoppingCart([...shoppingCart]);
+          var tempPrice =
+            subtotal - products.find((item) => item.id === productId).price;
+          setSubtotal(tempPrice);
+          return;
+        }
+      }
+    }
+  };
+
+  const handleOnToggle = () => {
+    if (isOpen) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
+  };
+
+  const handleOnCheckoutFormChange = (name, value) => {};
+
+  const handleOnSubmitCheckoutForm = () => {};
+
+  
+
   return (
     <div className="app">
       <BrowserRouter>
@@ -99,13 +111,14 @@ export default function App() {
               path="/"
               element={
                 <Home
-                  products={products}
-                  handleAddItemToCart={handleAddItemToCart}
-                  handleRemoveItemToCart={handleRemoveItemToCart}
-                  shoppingCart={shoppingCart}
+                
                   handleOnToggle={handleOnToggle}
                   handleOnCheckoutFormChange={handleOnCheckoutFormChange}
                   handleOnSubmitCheckoutForm={handleOnCheckoutFormChange}
+                  products={products}
+                  handleAddItemToCart={handleAddItemToCart}
+                  handleRemoveItemFromCart={handleRemoveItemFromCart}
+                  shoppingCart={shoppingCart}
                   isOpen={isOpen}
                   checkoutForm={checkoutForm}
                   setShoppingCart={setShoppingCart}
@@ -119,10 +132,9 @@ export default function App() {
               path="/products/:productId"
               element={
                 <ProductDetail
-                  shoppingCart={shoppingCart}
                   handleAddItemToCart={handleAddItemToCart}
-                  handleRemoveItemToCart={handleRemoveItemToCart}
-                  handleRemoveItemFromCart={handleRemoveItemToCart}
+                  handleRemoveItemFromCart={handleRemoveItemFromCart}
+                  shoppingCart={shoppingCart}
                   isOpen={isOpen}
                   products={products}
                   handleOnCheckoutFormChange={handleOnCheckoutFormChange}
@@ -133,7 +145,7 @@ export default function App() {
                 />
               }
             />
-            <Route path="/*" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </BrowserRouter>
