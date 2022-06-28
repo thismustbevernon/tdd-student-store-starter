@@ -8,6 +8,11 @@ Selling merchandise in the modern era requires digital solutions. For this proje
 
 ![](https://im.ezgif.com/tmp/ezgif-1-488fdc6438.gif)
 
+![](https://media.giphy.com/media/Dub286rrymEsiKemnF/giphy.gif)
+![](https://media.giphy.com/media/HrQWf8g1XweGw58EBo/giphy.gif)
+![](https://media.giphy.com/media/0NWiB1aI11VMVKHdxT/giphy.gif)
+
+
 ### Application Features
 
 #### Core Features
