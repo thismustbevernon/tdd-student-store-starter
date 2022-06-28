@@ -2,7 +2,7 @@ import * as React from "react";
 import Logo from "../Logo/Logo";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import { SocialIcon } from "react-social-icons";
+//import { SocialIcon } from "react-social-icons";
 //import FacebookIcon from '@mui/icons-material/Facebook';
 //import TwitterIcon from '@mui/icons-material/Twitter';
 //import InstagramIcon from '@mui/icons-material/Instagram';
@@ -14,7 +14,7 @@ export default function Navbar() {
 
       <div className="socials">
         <div className="sociallinks">
-          <SocialIcon
+          {/* <SocialIcon
             url="https://twitter.com/codepath?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
             network="twitter"
             bgColor="#2c4047"
@@ -33,7 +33,7 @@ export default function Navbar() {
             network="facebook"
             bgColor="#2c4047"
             fgColor="#fff"
-          />
+          /> */}
         </div>
       </div>
 

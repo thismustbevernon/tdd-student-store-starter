@@ -1,8 +1,27 @@
-.product-grid {
+/* .product-grid {
     display: flex;
     flex-wrap: wrap;
     background: gainsboro;
     margin-left: 5%;
     margin-right: 10%;
     margin-top: 10%;
-}
+} */
+
+.product-grid {
+    width: 100%;
+    max-width: 100vw;
+    margin: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .errorMsg{
+    
+    text-align: center;
+    font-size: xx-large;
+    color: #00c385;
+    font-style: italic;
+  }
