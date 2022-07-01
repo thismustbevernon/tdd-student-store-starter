@@ -2,6 +2,7 @@ const express = require("express");
 const Store = require("../models/store");
 const { NotFoundError } = require("../utils/errors");
 const router = express.Router();
+const { storage } = require("../data/storage")
 
 // list all products
 router.get("/", async (req, res, next) => {
@@ -21,14 +22,17 @@ router.post("/", (req, res, next) => {
     const cart = req.body.shoppingCart;
     const user = req.body.user;
     const newPurchase = Store.createPurchase(cart, user);
+    const purchases = storage.get("purchases");
+
     res.status(201).json({ purchase: newPurchase });
+    purchases.push(newPurchase).write();
   } catch (err) {
     next(err);
   }
 });
 
 // fetch single product Id
-router.get("/productId", async (req, res, next) => {
+router.get("/:productId", async (req, res, next) => {
   try {
     const productId = req.params.productId;
     const product = await Store.fetchProductById(productId);

@@ -145,5 +145,76 @@
       "price": 999.99
     }
   ],
-  "purchases": []
+  "purchases": [
+    {
+      "name": "vernon",
+      "email": "vernon@gmail.com",
+      "order": [
+        {
+          "itemId": 2,
+          "quantity": 3,
+          "price": 2
+        },
+        {
+          "itemId": 4,
+          "quantity": 6,
+          "price": 2
+        }
+      ],
+      "total": 19.575,
+      "createdAt": "7/1/2022, 12:51:38 PM",
+      "receipt": {
+        "userInfo": {
+          "name": "vernon",
+          "email": "vernon@gmail.com"
+        },
+        "lines": [
+          "Showing receipt for vernon available at vernon@gmail.com:",
+          "3 total undefined purchased at a cost of 2 for a total cost of 6.",
+          "6 total undefined purchased at a cost of 2 for a total cost of 12.",
+          "Before taxes, the subtotal was 18",
+          "After taxes and fees were applied, the total comes out to undefined"
+        ],
+        "productRows": [
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "name": "vernon",
+      "email": "vernon@gmail.com",
+      "order": [
+        {
+          "itemId": 2,
+          "quantity": 3,
+          "price": 2
+        },
+        {
+          "itemId": 4,
+          "quantity": 6,
+          "price": 2
+        }
+      ],
+      "total": 19.575,
+      "createdAt": "7/1/2022, 1:42:06 PM",
+      "receipt": {
+        "userInfo": {
+          "name": "vernon",
+          "email": "vernon@gmail.com"
+        },
+        "lines": [
+          "Showing receipt for vernon available at vernon@gmail.com:",
+          "3 total undefined purchased at a cost of 2 for a total cost of 6.",
+          "6 total undefined purchased at a cost of 2 for a total cost of 12.",
+          "Before taxes, the subtotal was 18",
+          "After taxes and fees were applied, the total comes out to undefined"
+        ],
+        "productRows": [
+          null,
+          null
+        ]
+      }
+    }
+  ]
 }
