@@ -5,6 +5,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #090a0a;
 }
 
 .sub-navbar {
@@ -70,7 +71,7 @@
 .sub-navbar .content .search-bar i {
   height: 40px;
   width: 40px;
-  background: #00c385;
+  background: #090a0a;
   color: white;
   fill: white;
   display: flex;

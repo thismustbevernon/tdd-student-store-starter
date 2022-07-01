@@ -23,14 +23,17 @@ export default function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [checkoutForm, setcheckoutForm] = useState(null);
   const [subtotal, setSubtotal] = useState(null);
-  
+
   useEffect(async () => {
-    let url = `https://codepath-store-api.herokuapp.com/store`;
+    //let url = `https://codepath-store-api.herokuapp.com/store`;
+    let url = `http://localhost:3001/store`;
 
     try {
       let response = await axios.get(url);
-      let responseData = response.data;
-      setProducts(responseData.products);
+
+      let responseData = response.data.products;
+
+      setProducts(responseData);
     } catch (e) {
       console.log(e);
       setError(e);
@@ -96,11 +99,29 @@ export default function App() {
     }
   };
 
-  const handleOnCheckoutFormChange = (name, value) => {};
+  const handleOnCheckoutFormChange = (change) => {
+    let userInformation = { ...checkoutForm };
 
-  const handleOnSubmitCheckoutForm = () => {};
 
-  
+    userInformation[change.target.name] = change.target.value
+
+    setcheckoutForm(userInformation);
+  };
+
+  const handleOnSubmitCheckoutForm = async (userInformation, shoppingCart) => {
+    console.log('userInformation: ', userInformation)
+    console.log('shoppingCart: ', shoppingCart)
+    const response = await axios.post("http://localhost:3001/store", {
+        user: {
+          "name": userInformation.name,
+          "email": userInformation.email,
+        },
+        "shoppingCart": shoppingCart
+      })
+      .then(function (response) {
+        console.log(response);
+      });
+  };
 
   return (
     <div className="app">
@@ -111,7 +132,6 @@ export default function App() {
               path="/"
               element={
                 <Home
-                
                   handleOnToggle={handleOnToggle}
                   handleOnCheckoutFormChange={handleOnCheckoutFormChange}
                   handleOnSubmitCheckoutForm={handleOnCheckoutFormChange}
