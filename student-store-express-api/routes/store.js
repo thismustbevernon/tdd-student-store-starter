@@ -1,43 +1,44 @@
-const express = require("express")
-//const { default: ProductView } = require("../../student-store-ui/src/components/ProductView/ProductView")
-const Store = require("../models/store")
-const { NotFoundError } = require("../utils/errors")
-const router = express.Router()
+const express = require("express");
+const Store = require("../models/store");
+const { NotFoundError } = require("../utils/errors");
+const router = express.Router();
 
-// list all transactions
-router.get("/products", async (req, res, next) => {
+// list all products
+router.get("/", async (req, res, next) => {
   try {
-    const products = await Store.listProducts()
-    res.status(200).json({ products })
+    const products = await Store.listProducts();
+    res.status(200).json({ products });
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-// create new transaction
-router.post("/products", async (req, res, next) => {
+// create new purchase
+router.post("/", (req, res, next) => {
   try {
-    const product = req.body.product
-    const newProduct = await Store.createPurchase(product)
-    res.status(201).json({ product: newProduct })
+    // console.log(req.body.shoppingCart)
+    // console.log(req.body.user)
+    const cart = req.body.shoppingCart;
+    const user = req.body.user;
+    const newPurchase = Store.createPurchase(cart, user);
+    res.status(201).json({ purchase: newPurchase });
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-// fetch single transaction
-router.get("/products/:productId", async (req, res, next) => {
+// fetch single product Id
+router.get("/productId", async (req, res, next) => {
   try {
-    const productId = req.params.productId
-    const product = await Store.fetchProductById(productId)
+    const productId = req.params.productId;
+    const product = await Store.fetchProductById(productId);
     if (!product) {
-      throw new NotFoundError("Transaction not found")
+      throw new NotFoundError("Product not found");
     }
-    res.status(200).json({ product })
+    res.status(200).json({ product });
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-
-module.exports = router
+module.exports = router;

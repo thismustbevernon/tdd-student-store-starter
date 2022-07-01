@@ -1,10 +1,12 @@
 // YOUR CODE HERE
 const express = require("express");
+const cors = require("cors");
 const morgan = require("morgan");
 const { restart } = require("nodemon");
 const app = express();
 app.use(morgan("tiny"));
 app.use(express.json());
+app.use(cors());
 
 const exchange = require("./routes/store");
 const { NotFoundError } = require("./utils/errors");

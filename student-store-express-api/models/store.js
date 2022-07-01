@@ -1,51 +1,69 @@
-const { BadRequestError } = require("../utils/errors")
-const { storage } = require("../data/storage")
+const { BadRequestError } = require("../utils/errors");
+const { storage } = require("../data/storage");
 
 class Store {
   static listProducts() {
-    // list all items in the transactions array
-    const products = storage.get("products").value()
+    // list all items in the product
+    const products = storage.get("products").value();
     return products;
   }
 
-
-
-  static async fetchProductById(productId) {
-    // fetch a single transaction
+  static fetchProductById(productId) {
+    // fetch a single product
     const product = storage
       .get("products")
       .find({ id: Number(productId) })
-      .value()
-    return product
+      .value();
+    return product;
   }
 
-
-
-  static async createPurchase(product) {
-    // create a new transaction
-
-    if (!product) {
-      throw new BadRequestError(`No product sent.`)
+  static createPurchase(shoppingCart, user) {
+    if (!shoppingCart) {
+      throw new BadRequestError(`No product sent.`);
     }
-    const requiredFields = ["postedAt", "description", "category", "amount"]
-    requiredFields.forEach((field) => {
-      if (!product[field] && product[field] !== 0) {
-        throw new BadRequestError(`Field: "${field}" is required in product`)
+
+    if (!user) {
+      throw new BadRequestError(`No product sent.`);
+    }
+    console.log(shoppingCart, user);
+    let seen = [];
+    shoppingCart.forEach((item) => {
+      if (!item.itemId || !item.quantity || seen.includes(item.id)) {
+        throw new BadRequestError(`No product sent.`);
       }
-    })
+      seen.concat(item.id);
+    });
 
-    const products = await Store.listProducts()
-    const productId = products.length + 1
-    const postedAt = new Date().toISOString()
+    var total = 0;
 
-    const newProduct = { id: productId, postedAt, ...product }
+    shoppingCart.forEach((item) => {
+      console.log(total);
+      total += parseFloat(parseFloat(item.price) * parseInt(item.quantity));
+      console.log(item.price);
+      console.log(item.quantity);
+    });
 
-    storage.get("products").push(newProduct).write()
-
-    return newProduct
+    var newTotal = total * 1.0875;
+    const purchaseOrder = {
+      name: user.name,
+      email: user.email,
+      order: shoppingCart,
+      total: newTotal,
+      //   total: this.total(shoppingCart),
+      createdAt: new Date().toLocaleString(),
+    };
+    console.log(purchaseOrder);
+    return purchaseOrder;
   }
 
+  //   static total(shoppingCart) {
+  //     var total = 0;
+  //     shoppingCart.forEach((item) => {
+  //       total += (parseInt(item.price) * parseInt(item.quantity));
+  //     });
 
- }
+  //     return total * 1.0875;
+  //   }
+}
 
-module.exports = Store
+module.exports = Store;
