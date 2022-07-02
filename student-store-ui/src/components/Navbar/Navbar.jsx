@@ -1,11 +1,8 @@
 import * as React from "react";
 import Logo from "../Logo/Logo";
+import { SocialIcon } from "react-social-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import { SocialIcon } from "react-social-icons";
-//import FacebookIcon from '@mui/icons-material/Facebook';
-//import TwitterIcon from '@mui/icons-material/Twitter';
-//import InstagramIcon from '@mui/icons-material/Instagram';
 
 export default function Navbar() {
   return (

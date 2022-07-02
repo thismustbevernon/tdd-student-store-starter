@@ -1,8 +1,11 @@
 import * as React from "react";
-import "./ProductGrid.css";
-import "../ProductCard/ProductCard";
+
 import ProductCard from "../ProductCard/ProductCard";
 import { useState } from "react";
+
+import "./ProductGrid.css";
+import "../ProductCard/ProductCard";
+
 
 export default function ProductGrid(props) {
 

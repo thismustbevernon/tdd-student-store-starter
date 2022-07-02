@@ -1,22 +1,27 @@
 import * as React from "react";
 import "./Home.css";
-import Navbar from "../Navbar/Navbar";
-import Sidebar from "../Sidebar/Sidebar";
 import Hero from "../Hero/Hero";
 import ProductGrid from "../ProductGrid/ProductGrid";
 import About from "../About/About";
 import Contact from "../Contact/Contact";
+import Navbar from "../Navbar/Navbar";
+import Sidebar from "../Sidebar/Sidebar";
+
+//![](https://media.giphy.com/media/Dub286rrymEsiKemnF/giphy.gif)
+//![](https://media.giphy.com/media/HrQWf8g1XweGw58EBo/giphy.gif)
+
 import { useState } from "react";
 
 export default function Home(props) {
-  const [open, setOpen] = useState(true);
-  const [all, setAll] = useState(null);
   const [clothing, setClothing] = useState(null);
   const [food, setFood] = useState(null);
+
   const [accessories, setAccessories] = useState(null);
   const [tech, setTech] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchText, setSearchText] = useState("");
+  const [open, setOpen] = useState(true);
+  const [all, setAll] = useState(null);
 
   const handleOnTextChange = (event) => {
     setSearchText(event.target.value);
@@ -47,44 +52,7 @@ export default function Home(props) {
       setSelectedCategory("");
     }
   };
-  const handleClothing = () => {
-    if (clothing) {
-      setClothing(false);
-    } else {
-      setClothing(true);
-      setAll(false);
 
-      setFood(false);
-      setTech(false);
-      setAccessories(false);
-      setSelectedCategory("clothing");
-    }
-  };
-  const handleFood = () => {
-    if (food) {
-      setFood(false);
-    } else {
-      setFood(true);
-      setAll(false);
-      setClothing(false);
-
-      setTech(false);
-      setAccessories(false);
-      setSelectedCategory("food");
-    }
-  };
-  const handleAccessories = () => {
-    if (accessories) {
-      setAccessories(false);
-    } else {
-      setAccessories(true);
-      setAll(false);
-      setClothing(false);
-      setFood(false);
-      setTech(false);
-      setSelectedCategory("accessories");
-    }
-  };
   const handleTech = () => {
     if (tech) {
       setTech(false);
@@ -96,6 +64,19 @@ export default function Home(props) {
 
       setAccessories(false);
       setSelectedCategory("tech");
+    }
+  };
+  const handleClothing = () => {
+    if (clothing) {
+      setClothing(false);
+    } else {
+      setClothing(true);
+      setAll(false);
+
+      setFood(false);
+      setTech(false);
+      setAccessories(false);
+      setSelectedCategory("clothing");
     }
   };
 
@@ -113,16 +94,16 @@ export default function Home(props) {
     <div className="home">
       <Navbar />
       <Sidebar
-        handleOnCheckOutFormChange={props.handleOnCheckOutFormChange}
-        handleOnSubmitCheckoutForm={props.handleOnSubmitCheckoutForm}
-        handleOnToggle={props.handleOnToggle}
         checkoutForm={props.checkoutForm}
         isOpen={props.isOpen}
         shoppingCart={props.shoppingCart}
         products={props.products}
         subtotal={props.subtotal}
+        handleOnCheckOutFormChange={props.handleOnCheckOutFormChange}
+        handleOnToggle={props.handleOnToggle}
         setSubtotal={props.setSubtotal}
         cartSize={props.cartSize}
+        handleOnSubmitCheckoutForm={props.handleOnSubmitCheckoutForm}
       />
       <Hero />
       <nav className="sub-navbar">
@@ -196,11 +177,10 @@ export default function Home(props) {
       <a id="BuyNow"></a>
 
       <ProductGrid
-        products={searchItems}
         handleAddItemToCart={props.handleAddItemToCart}
         handleRemoveItemFromCart={props.handleRemoveItemFromCart}
+        products={searchItems}
         shoppingCart={props.shoppingCart}
-        
       />
 
       <About />
@@ -276,27 +256,6 @@ export default function Home(props) {
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import * as React from "react";
 // import "./Home.css";
 // import Sidebar from "../Sidebar/Sidebar";
@@ -306,7 +265,6 @@ export default function Home(props) {
 // import ProductGrid from "../ProductGrid/ProductGrid";
 // import Hero from "../Hero/Hero";
 // import About from "../About/About";
-
 
 // export default function Home({
 //   products,
@@ -319,7 +277,7 @@ export default function Home(props) {
 //       <Navbar />
 //       <Sidebar />
 //       <Hero/>
-   
+
 //       <ProductGrid
 //         products={products}
 //         handleAddItemToCart={handleAddItemToCart}

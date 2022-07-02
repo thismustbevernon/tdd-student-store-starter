@@ -1,8 +1,10 @@
 import * as React from "react";
-import "./ProductCard.css";
+
 import { Link } from "react-router-dom";
 import { useState } from "react";
-//import ShoppingCart from "../ShoppingCart/ShoppingCart";
+
+import "./ProductCard.css";
+
 
 export default function ProductCard(props) {
   return (

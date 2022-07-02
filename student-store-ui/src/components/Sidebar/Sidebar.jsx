@@ -7,12 +7,13 @@ export default function Sidebar({
   isOpen,
   handleOnToggle,
   shoppingCart,
-  products,
-  subtotal,
-  cartSize,
   handleOnSubmitCheckoutForm,
   handleOnCheckoutFormChange,
-  checkoutForm
+  checkoutForm,
+
+  products,
+  subtotal,
+  cartSize
 }) {
   return (
     <section className="sidebar">
@@ -31,18 +32,18 @@ export default function Sidebar({
           </button>
         </div>
         <ShoppingCart
-          isOpen={isOpen}
-          shoppingCart={shoppingCart}
           products={products}
           subtotal={subtotal}
           cartSize={cartSize}
+          isOpen={isOpen}
+          shoppingCart={shoppingCart}
         />
         <CheckoutForm
-          handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm}
-          handleOnCheckoutFormChange={handleOnCheckoutFormChange}
           isOpen={isOpen}
           shoppingCart={shoppingCart}
           checkoutForm={checkoutForm}
+          handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm}
+          handleOnCheckoutFormChange={handleOnCheckoutFormChange}
         />
       </section>
     </section>
