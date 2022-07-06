@@ -10,6 +10,7 @@ export default function Sidebar({
   handleOnSubmitCheckoutForm,
   handleOnCheckoutFormChange,
   checkoutForm,
+  setShoppingCart,
 
   products,
   subtotal,
@@ -44,6 +45,7 @@ export default function Sidebar({
           checkoutForm={checkoutForm}
           handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm}
           handleOnCheckoutFormChange={handleOnCheckoutFormChange}
+          setShoppingCart={setShoppingCart}
         />
       </section>
     </section>

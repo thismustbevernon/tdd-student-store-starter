@@ -2,18 +2,53 @@ import * as React from "react";
 //import { checkout } from "../../../../student-store-express-api/app";
 import "./checkOutForm.css";
 
-export default function CheckoutForm({
-  isOpen,
-  shopppingCart,
-  handleOnSubmitCheckoutForm,
-  handleOnCheckoutFormChange,
-  checkoutForm,
-}) {
-  console.log("email?", checkoutForm?.email);
-  console.log("name", checkoutForm?.name);
+// export default function CheckoutForm({
+//   isOpen,
+//   shopppingCart,
+//   handleOnSubmitCheckoutForm,
+//   handleOnCheckoutFormChange,
+//   checkoutForm,
+// }) {
+//   console.log("email?", checkoutForm?.email);
+//   console.log("name", checkoutForm?.name);
+
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+export default function CheckoutForm(props) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+ 
+
+  const handleOnNameChange = (event) => {
+    setName(event.target.value);
+  };
+  
+  const handleOnEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+
+
+  const handleOnCheckOut = () => {
+    var userInfo = {
+      name: name,
+      email: email,
+    };
+    axios.post(`http://localhost:3001/store`, {
+      shoppingCart: props.shoppingCart,
+      user: userInfo,
+    });
+
+    
+    props.setShoppingCart([])
+    document.getElementById("nameInput").value = "";
+    document.getElementById("email").value = "";
+
+  };
 
   return (
-    <div className={isOpen ? "checkout-form" : "checkout-form closed"}>
+    <div className={props.isOpen ? "checkout-form" : "checkout-form closed"}>
       <h3>
         Payment Info
         <span>
@@ -28,7 +63,7 @@ export default function CheckoutForm({
             className="checkout-form-input"
             type="text"
             placeholder="Student Name"
-            onChange={handleOnCheckoutFormChange}
+            onChange={handleOnNameChange}
           />
         </div>
       </div>
@@ -40,8 +75,7 @@ export default function CheckoutForm({
             className="checkout-form-input"
             type="email"
             placeholder="student@codepath.org"
-            onChange={handleOnCheckoutFormChange}
-            value={checkoutForm ? checkoutForm.email : ""}
+            onChange={handleOnEmailChange}
           />
         </div>
       </div>
@@ -65,12 +99,18 @@ export default function CheckoutForm({
       <div className="field">
         <div className="control">
           <button
+            //   className="button checkout-button"
+            //   onClick={() =>
+            //     handleOnSubmitCheckoutForm(checkoutForm, shopppingCart)
+            //   }
+            // >
+            //   {" "}
+            //   Checkout
+
             className="button checkout-button"
-            onClick={() =>
-              handleOnSubmitCheckoutForm(checkoutForm, shopppingCart)
-            }
+            disabled={props.shoppingCart?.length ? false : true}
+            onClick={handleOnCheckOut}
           >
-            {" "}
             Checkout
           </button>
         </div>

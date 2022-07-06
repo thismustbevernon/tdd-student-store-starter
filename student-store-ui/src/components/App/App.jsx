@@ -99,29 +99,32 @@ export default function App() {
     }
   };
 
-  const handleOnCheckoutFormChange = (change) => {
-    let userInformation = { ...checkoutForm };
+  // const handleOnCheckoutFormChange = (change) => {
+  //   let userInformation = { ...checkoutForm };
 
 
-    userInformation[change.target.name] = change.target.value
+  //   userInformation[change.target.name] = change.target.value
 
-    setcheckoutForm(userInformation);
-  };
+  //   setcheckoutForm(userInformation);
+  // };
 
-  const handleOnSubmitCheckoutForm = async (userInformation, shoppingCart) => {
-    console.log('userInformation: ', userInformation)
-    console.log('shoppingCart: ', shoppingCart)
-    const response = await axios.post("http://localhost:3001/store", {
-        user: {
-          "name": userInformation.name,
-          "email": userInformation.email,
-        },
-        "shoppingCart": shoppingCart
-      })
-      .then(function (response) {
-        console.log(response);
-      });
-  };
+  // const handleOnSubmitCheckoutForm = async (userInformation, shoppingCart) => {
+  //   console.log(shoppingCart)
+  //   const response = await axios.post("http://localhost:3001/store", {
+  //       user: {
+  //         "name": checkoutForm.name,
+  //         "email": checkoutForm.email,
+  //       },
+  //       "shoppingCart": shoppingCart
+  //     })
+  //     .then(function (response) {
+  //       console.log(response);
+  //     });
+  // };
+
+  const handleOnCheckoutFormChange = (name, value) => {};
+
+  const handleOnSubmitCheckoutForm = () => {};
 
   return (
     <div className="app">
